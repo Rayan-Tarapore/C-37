@@ -26,6 +26,12 @@ class Game {
       form = new Form()
       form.display();
     }
+    player1 = createSprite(displayWidth-150,displayHeight/2)
+    player2 = createSprite(displayWidth-50,displayHeight/2)
+    player3 = createSprite(displayWidth+50,displayHeight/2)
+    player4 = createSprite(displayWidth+150,displayHeight/2)
+
+    players = [player1,player2,player3,player4];
   }
 
   play(){
@@ -35,17 +41,27 @@ class Game {
     Player.getPlayerInfo();
 
     if(allPlayers !== undefined){
-      var display_position = 130;
+      //var display_position = 130;
+      var index = 0;
+      var x = 0;
+      var y 
       for(var plr in allPlayers){
-        if (plr === "player" + player.index)
-          fill("red")
+        index = index +1;
+        x = x+300;
+        y = displayHeight - allPlayers[plr].distance
+        players[index-1].x = x
+        players[index-1].y = y
+        if (index === player.index){
+        players[index-1].shapeColor = "red";
+        camera.position.x = displayWidth/2;
+        camera.position.y = players[index-1].y
+        }
         else
-          fill("black");
-
-        display_position+=20;
-        textSize(15);
-        text(allPlayers[plr].name + ": " + allPlayers[plr].distance, 120,display_position)
+        fill("black");
+      
+        
       }
+     drawSprites();
     }
 
     if(keyIsDown(UP_ARROW) && player.index !== null){
